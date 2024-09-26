@@ -1,3 +1,4 @@
+-- online platform
 CREATE DATABASE online_platform;
 USE online_platform;
 CREATE TABLE Students (
