@@ -117,7 +117,7 @@ JOIN
     Teacher_Subjects ON Teachers.id = Teacher_Subjects.teacher_id
 GROUP BY 
     Teachers.id, Teachers.name;
-    
+
 SELECT 
     Subjects.name AS subject_name,
     Teachers.name AS teacher_name,
@@ -131,7 +131,8 @@ JOIN
 LEFT JOIN 
     Reviews ON Teachers.id = Reviews.teacher_id
 GROUP BY 
-    Subjects.name, Teachers.name;
+    Subjects.name, Teachers.id, Teachers.name;
+
 
 
 
