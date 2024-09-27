@@ -38,6 +38,7 @@ CREATE TABLE Reviews (
     FOREIGN KEY (teacher_id) REFERENCES Teachers(id) ON DELETE CASCADE 
 );
 
+
 INSERT INTO Students (name, email, password) 
 VALUES ('Moyze Ahmad', 'moyze@example.com', 'password123'),
 ('Bilal Khalid', 'bilal@example.com', 'password456'),
@@ -75,4 +76,65 @@ VALUES(1, 1, 5, 'Excellent teacher! Very knowledgeable and helpful.'),
 (3, 3, 3, 'Average teaching style, could be more engaging.'); 
 
 select * from Reviews;
+
+INSERT INTO Reviews (student_id, teacher_id, rating, review_text) 
+VALUES
+    (1, 1, 4, 'Great teaching methods, but sometimes moves too fast.'),
+    (1, 2, 5, 'Fantastic! Very engaging and supportive.'),
+    (2, 1, 3, 'Content is good, but delivery can be improved.'),
+    (2, 3, 5, 'Incredible teacher! Makes complex topics easy to understand.'),
+    (3, 2, 2, 'Not very interactive; more discussions would help.'),
+    (3, 3, 4, 'Very clear explanations, but could include more examples.'),
+    (1, 3, 5, 'Best teacher ever! Really cares about students.'),
+    (2, 1, 4, 'Solid explanations, and helpful feedback.'),
+    (3, 2, 3, 'Average, but can improve with more enthusiasm.');
+    
+select * from Reviews;
+
+SELECT 
+    Teachers.name AS teacher_name, 
+	Subjects.name AS subject_name, 
+    Reviews.rating AS teacher_rating,
+    Reviews.review_text AS review
+FROM 
+    Teachers
+JOIN 
+    Teacher_Subjects ON Teachers.id = Teacher_Subjects.teacher_id
+JOIN 
+    Subjects ON Teacher_Subjects.subject_id = Subjects.id
+LEFT JOIN 
+    Reviews ON Teachers.id = Reviews.teacher_id
+ORDER BY 
+    Teachers.name ASC, 
+    Reviews.rating DESC;
+
+SELECT 
+    Teachers.name AS teacher_name, 
+    COUNT(Teacher_Subjects.subject_id) AS subject_count
+FROM 
+    Teachers 
+JOIN 
+    Teacher_Subjects ON Teachers.id = Teacher_Subjects.teacher_id
+GROUP BY 
+    Teachers.id, Teachers.name;
+    
+SELECT 
+    Subjects.name AS subject_name,
+    Teachers.name AS teacher_name,
+    AVG(Reviews.rating) AS average_rating
+FROM 
+    Subjects
+JOIN 
+    Teacher_Subjects ON Subjects.id = Teacher_Subjects.subject_id
+JOIN 
+    Teachers ON Teacher_Subjects.teacher_id = Teachers.id
+LEFT JOIN 
+    Reviews ON Teachers.id = Reviews.teacher_id
+GROUP BY 
+    Subjects.name, Teachers.name;
+
+
+
+
+
 
