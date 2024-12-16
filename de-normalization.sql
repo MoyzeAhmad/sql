@@ -1,3 +1,4 @@
+-- denormalization
 create database denormalize;
 use denormalize;
 CREATE TABLE Authors (
